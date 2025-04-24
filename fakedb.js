@@ -21,6 +21,10 @@ export const users = [
           by:1
      },
      {
+          quote:"Honesty is the best policy",
+          by:1
+     },
+     {
           quote:"Be GreatFul",
           by:2
      },
