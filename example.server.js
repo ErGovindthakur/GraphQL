@@ -1,36 +1,47 @@
-// Basic packages to initial gql project
+// Exploring basic of gql
+import { ApolloServer,gql } from "apollo-server";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
+import {users,quotes} from "./fakedb.js";
 
-import {ApolloServer,gql} from "apollo-server";
-import {ApolloServerPluginLandingPageGraphQLPlayground} from "apollo-server-core";
+// creating a basic query (schema)
 
-// Creating a Query
 const typeDefs = gql`
 type Query{
-     myGreet: String
+     users:[User]
+     quotes:[Quote]
+}
+type User{
+     id:ID!
+     firstName:String
+     lastName:String
+     email:String
+     password:String,
+     quotes:[Quote]
+},
+type Quote{
+     quote:String,
+     by:ID
 }
 `;
 
-// Creating a resolver for created query
-
+// creating a resolver
 const resolvers = {
      Query:{
-          myGreet : ()=>{
-               return "Hello Govind !";
-          },
+         users:()=>users,
+         quotes:()=>quotes
      },
+     User:{
+          quotes:(ur)=>quotes.filter((quote)=>quote.by == ur.id)
+     }
 };
 
-// creating a server for running this project at apollo playground
-
+// Initializing an ApolloServer
 const server = new ApolloServer({
      typeDefs,
      resolvers,
-     plugins:[
-          ApolloServerPluginLandingPageGraphQLPlayground
-     ]
+     plugins:[ApolloServerPluginLandingPageGraphQLPlayground]
 });
 
-// listen at predefined port
 server.listen().then(({url})=>{
-     console.log(`Server is running at ${url}`)
+     console.log(`Server is ready at ${url}`)
 });

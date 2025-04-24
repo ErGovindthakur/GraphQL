@@ -2,7 +2,7 @@
   "name": "graphql_exploring",
   "version": "1.0.0",
   "description": "Welcome to my GraphQL learning tracker! This README documents all the key concepts, hands-on projects, and useful resources I explore while mastering GraphQL.",
-  "main": "server.js",
+  "main": "example.server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
