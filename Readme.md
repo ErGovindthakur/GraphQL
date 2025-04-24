@@ -48,14 +48,122 @@ Welcome to my GraphQL learning tracker! This README documents all the key concep
 
 ## ⚔️ GraphQL vs REST
 
-| Feature         | REST             | GraphQL           |
-|-----------------|------------------|-------------------|
-| Data Fetching   | Multiple endpoints | Single endpoint    |
-| Over-fetching   | Yes              | No                |
-| Under-fetching  | Yes              | No                |
-| Versioning      | Yes              | Not required      |
+| Feature        | REST               | GraphQL         |
+| -------------- | ------------------ | --------------- |
+| Data Fetching  | Multiple endpoints | Single endpoint |
+| Over-fetching  | Yes                | No              |
+| Under-fetching | Yes                | No              |
+| Versioning     | Yes                | Not required    |
+
+### Over Fetching in Rest
+
+1. <b>Over Fetching </b> happens when an api returns <b>more data than you actually needs </b>
 
 ---
+
+You're building a blog app and you just want to show the post title.
+
+🔧 Example (REST):
+
+```bash
+GET post/1
+```
+
+Responses
+
+```json
+{
+  "id": 1,
+  "title": "GraphQL is Awesome",
+  "content": "Full content of the blog...",
+  "author": {
+    "id": 22,
+    "name": "Govind",
+    "email": "govind@example.com"
+  },
+  "createdAt": "2025-04-24T10:00:00Z",
+  "likes": 42
+}
+```
+
+But you only needed the title. All the rest is just wasted data = over-fetching.
+
+.
+
+🕳️ Under-fetching in REST
+Under-fetching happens when you don’t get all the data you need, so you have to make multiple requests.
+
+🔧 Example (REST):
+You want to show post title and the author name.
+
+1. First you call:
+
+```bash
+GET /posts/1
+```
+
+Response
+
+```json
+{
+  "id": 1,
+  "title": "GraphQL is Awesome",
+  "authorId": 22
+}
+```
+
+2. Now you need author details, so you call:
+
+```bash
+GET /users/22
+```
+
+Response
+
+```json
+{
+  "id": 22,
+  "name": "Govind",
+  "email": "govind@example.com"
+}
+```
+
+You had to make two API calls to get all the data. That’s under-fetching.
+
+✅ GraphQL Fixes Both
+With GraphQL, you ask for exactly what you need in a single request.
+
+🔧 GraphQL Query:
+
+```graphql
+{
+  post(id: 1) {
+    title
+    author {
+      name
+    }
+  }
+}
+```
+
+Response
+
+```json
+{
+  "data": {
+    "post": {
+      "title": "GraphQL is Awesome",
+      "author": {
+        "name": "Govind"
+      }
+    }
+  }
+}
+```
+
+✅ No over-fetching.
+✅ No under-fetching.
+✅ One request. Clean and efficient.
 
 ## 🛠 Setting Up GraphQL Server
 
@@ -155,4 +263,3 @@ Welcome to my GraphQL learning tracker! This README documents all the key concep
 ## 💬 Notes
 
 Keep updating this section with your personal learnings, doubts, and “aha!” moments 💡.
-
