@@ -167,6 +167,11 @@ Response
 
 ## 🛠 Setting Up GraphQL Server
 
+Starting Cmd
+```bash
+npm install graphql@latest apollo-server@latest apollo-server-core@latest
+
+```
 - [ ] Initialize Node.js project
 - [ ] Install dependencies (`apollo-server`, `graphql`)
 - [ ] Create basic schema
