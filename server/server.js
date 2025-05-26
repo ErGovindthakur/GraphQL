@@ -6,6 +6,7 @@ const users = [
      {id:1,name:'ajay', age:23, isMarried:false},
      {id:2,name:'vijay', age:30, isMarried:true},
      {id:3,name:'jay', age:32, isMarried:true},
+     {id:4,name:'jea', age:42, isMarried:true},
 ]
 
 const typeDefs = `
