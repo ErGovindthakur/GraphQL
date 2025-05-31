@@ -12,6 +12,9 @@ const users = [
 ];
 
 // 2. GraphQL type definitions (schema)
+// The Query is only used to fetch data 
+// The Mutation is used to update,delete and create data
+
 const typeDefs = `
   type Query {
     getUser: [User]
