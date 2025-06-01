@@ -33,7 +33,7 @@ const typeDefs = gql`
       id: ID!
       name: String!
       productId: String!
-      reason: String
+      reason: String!
       image: String!
     ): Product
 
