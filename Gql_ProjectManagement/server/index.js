@@ -2,12 +2,17 @@
 
 const express = require("express");
 const {ApolloServer} = require("apollo-server-express");
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+require('dotenv').config();
+const connectDb = require("./db/db")
 const cors = require("cors");
 
 
 const typeDefs = require("./schema/typeDefs");
 const resolvers = require("./schema/resolvers");
+
+
+const port = process.env.PORT || 5000;
 
 const startServer = async() => {
 
@@ -21,14 +26,16 @@ const startServer = async() => {
      server.applyMiddleware({app});
 
      // connecting mongo database
-     mongoose.connect('mongodb://localhost:27017/',{
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-     });
+     // mongoose.connect('mongodb://localhost:27017/',{
+     //      useNewUrlParser: true,
+     //      useUnifiedTopology: true,
+     // });
+
+     await connectDb();
 
 
-     app.listen({port:4000},()=>{
-          console.log(`server is ready at http://localhost:4000${server.graphqlPath}`)
+     app.listen(port,()=>{
+          console.log(`server is ready at http://localhost:${port}${server.graphqlPath}`)
      })
 }
 
