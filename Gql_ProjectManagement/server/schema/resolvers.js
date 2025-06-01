@@ -6,11 +6,14 @@ const resolvers = {
   // query to get data
   Query: {
     getProducts: async () => await Product.find(),
+    
+    // Here is the simple data which getSingleProduct method returns (parent,args(contains everything), context, info)
+
     getSingleProduct: async (_, { id }) => await Product.findById(id),
   },
 
   Mutation: {
-    updateProduct: async (_, args) => {
+    addProduct: async (_, args) => {
       const product = new Product(args);
       await product.save();
       return product;
