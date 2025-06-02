@@ -14,9 +14,9 @@ const Home = () => {
       <ul className="space-y-2">
         {data.getProducts.map((product) => (
           <li key={product.id} className="border p-2">
-            <Link to={`/products/${product.id}`} className="text-blue-600 hover:underline">
+            {/* <Link to={`/products/${product.id}`} className="text-blue-600 hover:underline"> */}
               {product.name}
-            </Link>
+            {/* </Link> */}
           </li>
         ))}
       </ul>
