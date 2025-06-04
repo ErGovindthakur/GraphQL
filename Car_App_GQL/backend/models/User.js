@@ -1,10 +1,22 @@
 import mongoose from "mongoose"
 
 const userSchema = new mongoose.Schema({
-     userName:String,
-     userEmail:String,
-     userPassword:String,
-     userImage:String,
+     userName:{
+          type:String,
+          required:true
+     },
+     userEmail:{
+          type:String,
+          required:true,
+          unique:true
+     },
+     userPassword:{
+          type:String,
+          required:true
+     },
+     userImage:{
+          type:String,
+     },
      isAdmin:Boolean,
      purchases:[{
           type:mongoose.Schema.Types.ObjectId,
