@@ -20,6 +20,7 @@ const typedefs = gql`
     id: ID!
     userName: String!
     userEmail: String!
+    userPassword:String!
     isAdmin: Boolean!
     userImage: String!
     purchases:[Purchase]
@@ -50,6 +51,7 @@ const typedefs = gql`
     addUser(
       userName: String!
       userEmail: String!
+      userPassword:String!
       userImage: String!
       isAdmin: Boolean!
     ): User
@@ -59,6 +61,7 @@ const typedefs = gql`
       id: ID!
       userName: String!
       userEmail: String!
+      userPassword:String!
       userImage: String!
       isAdmin: Boolean!
     ): User
