@@ -1,11 +1,26 @@
 import mongoose from "mongoose";
 
 const carSchema = new mongoose.Schema({
-     carName:String,
-     carColor:String,
-     carPrice:Number,
-     carBrand:String,
-     carType:String,
+     carName:{
+          type:String,
+          required:true
+     },
+     carColor:{
+          type:String,
+          required:true
+     },
+     carPrice:{
+          type:Number,
+          required:true
+     },
+     carBrand:{
+          type:String,
+          required:true
+     },
+     carType:{
+          type:String,
+          required:true
+     },
      carImage:String,
      purchases:[{
           type:mongoose.Schema.Types.ObjectId,
