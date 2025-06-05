@@ -1,8 +1,18 @@
-// Creating carTypes and user
+// typeDefs.js
 
 import { gql } from "apollo-server-express";
 
-const typedefs = gql`
+const typeDefs = gql`
+  ## Custom scalar for consistent DateTime format
+  scalar DateTime
+
+  ## Enum for payment status
+  enum PaymentStatus {
+    PAID
+    PENDING
+    FAILED
+  }
+
   ## Car type
   type Car {
     id: ID!
@@ -12,66 +22,72 @@ const typedefs = gql`
     carBrand: String!
     carType: String!
     carImage: String!
-    purchases:[Purchase]
+    purchases: [Purchase]
   }
 
-  ## User type
+  ## User type (no password field exposed)
   type User {
     id: ID!
     userName: String!
     userEmail: String!
-    userPassword:String!
     isAdmin: Boolean!
     userImage: String!
-    purchases:[Purchase]
+    purchases: [Purchase]
   }
 
+  ## Purchase type
   type Purchase {
     id: ID!
     buyer: User!
     car: Car!
-    purchaseDate: String!
-    paymentStatus: String!
+    purchaseDate: DateTime!
+    paymentStatus: PaymentStatus!
   }
 
-  ## Query definitions
+  ## Return type
+  type Return {
+    id: ID!
+    buyer: User!
+    car: Car!
+    returnDate: DateTime!
+  }
+
+  ## Queries
   type Query {
     getAllUsers: [User]
     getUserById(id: ID!): User
     getAllCars: [Car]
     getCarById(id: ID!): Car
     getAllPurchases: [Purchase]
-    getPurchasesById(id: ID!): Purchase
+    getPurchaseById(id: ID!): Purchase
     getUserPurchases(id: ID!): [Purchase]
+    getAllReturns: [Return]
+    getUserReturns(id: ID!): [Return]
   }
 
-  ## Mutation definitions
+  ## Mutations
   type Mutation {
-    ## Add user
+    ## User mutations
     addUser(
       userName: String!
       userEmail: String!
-      userPassword:String!
+      userPassword: String!
       userImage: String!
       isAdmin: Boolean!
     ): User
 
-    ## Update user
     updateUser(
       id: ID!
       userName: String!
       userEmail: String!
-      userPassword:String!
+      userPassword: String!
       userImage: String!
       isAdmin: Boolean!
     ): User
 
-    ## Delete user
     deleteUser(id: ID!): User
 
-    ## mutation for cars
-
-    ## addCar
+    ## Car mutations
     addCar(
       carName: String!
       carPrice: Float!
@@ -81,7 +97,6 @@ const typedefs = gql`
       carType: String!
     ): Car
 
-    ## updateCar
     updateCar(
       id: ID!
       carName: String!
@@ -92,12 +107,12 @@ const typedefs = gql`
       carType: String!
     ): Car
 
-    ## deleteCar
     deleteCar(id: ID!): Car
 
-    ## car mutation
+    ## Purchase/Return operations
     buyCar(userId: ID!, carId: ID!): Purchase
+    returnCar(purchaseId: ID!): Return
   }
 `;
 
-export default typedefs;
+export default typeDefs;
